@@ -204,7 +204,7 @@ drive_type = business
 delta = true
 drive_id = YourDriveID
 token = {"access_token":"xxx","token_type":"Bearer","refresh_token":"xxx","expiry":"2020-01-11T17:01:11.400110811-01:00"}
-```ini
+```
 
 ### Links
 
