@@ -167,14 +167,13 @@ Proceed through the final steps of the `rclone` config wizard.
 ### Mount Your Drive
 
 1. **Create Mount Point Directory**:
-```   bash
-   mkdir -p ~/rclone/gcch
+```bash
+    mkdir -p ~/rclone/gcch
 ```
 2. **Mount OneDrive**:
-   - Use the following command to mount OneDrive:
-     ```bash
-     rclone mount onedrive_gcch: ~/rclone/gcch --vfs-cache-mode full --daemon
-     ```
+```bash
+    rclone mount onedrive_gcch: ~/rclone/gcch --vfs-cache-mode full --daemon
+```
 
 ### Troubleshooting
 
