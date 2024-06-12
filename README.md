@@ -147,20 +147,22 @@ interact ;# return control to the user
 ### Complete `rclone` Configuration
 
 #### Manual Authorization
-Avoid letting rclone auto-fetch the token. Instead, manually run the authorization server/listener yourself, which the expect script will also provide for you:
+Avoid letting `rclone` auto-fetch the token. Instead, manually run the authorization server/listener yourself, which the `expect` script will also provide for you:
 ```bash
 rclone authorize "onedrive" --auth-no-open-browser "client_id" "client_secret" -vv
 ```
-The listener will also give you the browser URL to visit. Do that.
+The auth listener will also give you the browser URL to visit. Do that.
 
-You will get a big chunk of output in your terminal. Look for:
+You will then get a big chunk of output in your terminal. Look for:
 ```plaintext
 Paste the following into your remote machine --->
 <---End paste
 ```
-Everything in between those lines goes into the value for 'token' in your rclone config that is still waiting for you from before you manually ran the listener `rclone authorize` command.
+Everything in between those lines goes into the value for 'token' in your `rclone config` wizard that is still waiting for you from before you manually ran the listener `rclone authorize` command.
 
-Proceed through the final steps of the `rclone` config wizard.
+Proceed through the final steps of the `rclone config` wizard. Of particular note, a final step of the wizard is getting your onedrive id.
+
+Configuration completed.
 
 
 ### Mount Your Drive
