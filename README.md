@@ -1,7 +1,7 @@
 # HOWTO: Mount M365 GCCH OneDrive Business on Linux using `rclone`
 
 ## Goal
-The goal is to mount a M365 GCCH OneDrive Business account, which almost always requires Multi-Factor Authentication (MFA), on a Linux machine using rclone. This setup needs to ensure secure access and optionally handle MFA, while complying with GCCH requirements `"us"` region. We configure both the server side (Azure) and the client side (rclone). We ensure proper handling of OAuth2 tokens using GCCH endpoints.
+The goal is to mount a M365 GCCH OneDrive Business account, which almost always requires Multi-Factor Authentication (MFA), on a Linux machine using rclone. This setup needs to ensure secure access and optionally handle MFA, while complying with GCCH requirements and the `"us"` region. We configure both the server side (Azure) and the client side (`rclone`). We ensure proper handling of OAuth2 tokens using GCCH endpoints.
 
 ## Prerequisites
 - **Administrative Access**: You need administrative access to the Azure portal. You may need administrative access to the Linux machine for `rclone` and/or the `expect` script.
@@ -59,8 +59,7 @@ Note that the version available in `apt` was two years outdated in current repos
 2. Navigate to **Azure Active Directory** -> **App registrations** -> **New registration**.
    - Provide a name for the application (e.g., "RcloneOneDriveGCCH").
    - Set the "Supported account types" to "Accounts in this organizational directory only".
-   - Set the "Redirect URI" type to "Public client/native (mobile & desktop)".
-   - Enter `http://localhost:53682/` as the Redirect URI. This is the rclone default.
+   - Enter `http://localhost:53682/` as the Redirect URI. This is the `rclone` default.
    - Click **Register**.
 
 ### Create Client ID and Secret
@@ -72,7 +71,7 @@ Note that the version available in `apt` was two years outdated in current repos
 ### Set API Permissions
 4. Navigate to **API permissions** -> **Add a permission** -> **Microsoft Graph**.
    - Select **Delegated permissions**.
-   - Add the following permissions:
+   - Add the following permissions (check `rclone` docs for any changes):
      - `Files.Read`
      - `Files.Read.All`
      - `Files.ReadWrite`
@@ -145,7 +144,7 @@ puts "                  *** IGNORE WHAT IT SAYS BELOW ***\n"
 
 interact ;# return control to the user
 ```
-### Complete rclone Configuration
+### Complete `rclone` Configuration
 
 #### Manual Authorization
 Avoid letting rclone auto-fetch the token. Instead, manually run the authorization server/listener yourself, which the expect script will also provide for you:
