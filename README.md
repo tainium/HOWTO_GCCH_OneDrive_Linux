@@ -1,7 +1,10 @@
 # HOWTO: Mount M365 GCCH OneDrive Business on Linux using `rclone`
 
 ## Goal
-The goal is to mount a M365 GCCH OneDrive Business account, which almost always requires Multi-Factor Authentication (MFA), on a Linux machine using rclone. This setup needs to ensure secure access and optionally handle MFA, while complying with GCCH requirements and the `"us"` region. We configure both the server side (Azure) and the client side (`rclone`). We ensure proper handling of OAuth2 tokens using GCCH endpoints.
+The goal is to mount a M365 GCCH OneDrive Business account, which almost always requires Multi-Factor Authentication (MFA), on a Linux machine using rclone. This setup needs to ensure secure access and optionally handle MFA, while complying with GCCH requirements and the `"us"` region. We configure both the server side (Azure) and the client side (`rclone`). We ensure proper handling of OAuth2 tokens using GCCH endpoints. Read the `rclone` documentation.  This guide is intended as a supplement that primarily differs in how we handle tenant ids and the authorization step.
+
+## `rclone` vs abraunegg's `OneDrive Client for Linux`
+Both are viable for this scenario. I chose rclone to use the same software for mounting multiple cloud storage services. Abraunegg's solution worked well in testing and may be a better option if you don't mount other services or prefer not to use different software for each service.
 
 ## Prerequisites
 - **Administrative Access**: You need administrative access to the Azure portal. You may need administrative access to the Linux machine for `rclone` and/or the `expect` script.
@@ -50,25 +53,25 @@ Note that the version available in `apt` was two years outdated in current repos
     rclone version
     ```
 
-## Server Setup (Azure)
+### Server Setup (Azure)
 
-### Log in to Azure Portal
+#### Log in to Azure Portal
 1. Access the [Azure Portal](https://portal.azure.us/) and log in with your administrative account.
 
-### Register a New Application
+#### Register a New Application
 2. Navigate to **Azure Active Directory** -> **App registrations** -> **New registration**.
    - Provide a name for the application (e.g., "RcloneOneDriveGCCH").
    - Set the "Supported account types" to "Accounts in this organizational directory only".
    - Enter `http://localhost:53682/` as the Redirect URI. This is the `rclone` default.
    - Click **Register**.
 
-### Create Client ID and Secret
+#### Create Client ID and Secret
 3. After registration, go to **Certificates & secrets** -> **New client secret**.
    - Add a description (e.g., "RcloneSecret") and set an expiration period.
    - Click **Add** and copy the generated secret value. You will need this later.
    - Note the "Application (client) ID" on the application's overview page.
 
-### Set API Permissions
+#### Set API Permissions
 4. Navigate to **API permissions** -> **Add a permission** -> **Microsoft Graph**.
    - Select **Delegated permissions**.
    - Add the following permissions (check `rclone` docs for any changes):
@@ -81,9 +84,9 @@ Note that the version available in `apt` was two years outdated in current repos
    - Ensure to **Grant admin consent** for the added permissions.
 
 
-## Client Configuration (rclone)
+### Client Configuration (rclone)
 
-### rclone Configuration with `expect` Script
+#### rclone Configuration with `expect` Script
 
 You may have to go through `rclone config` a few times to get it right. Here's an `expect` script to speed up the easier steps of the basic setup and then stop at the "Use auto config" step, where you'll need to complete the authorization manually.
 
@@ -144,9 +147,7 @@ puts "                  *** IGNORE WHAT IT SAYS BELOW ***\n"
 
 interact ;# return control to the user
 ```
-### Complete `rclone` Configuration
-
-#### Manual Authorization
+#### Pause, Then Proceed Through Manual Authorization
 Avoid letting `rclone` auto-fetch the token. Instead, manually run the authorization server/listener yourself, which the `expect` script will also provide for you:
 ```bash
 rclone authorize "onedrive" --auth-no-open-browser "client_id" "client_secret" -vv
@@ -164,8 +165,7 @@ Proceed through the final steps of the `rclone config` wizard. Of particular not
 
 Configuration completed.
 
-
-### Mount Your Drive
+#### Mount Your Drive
 
 1. **Create Mount Point Directory**:
 ```bash
@@ -176,8 +176,7 @@ Configuration completed.
     rclone mount onedrive_gcch: ~/rclone/gcch --vfs-cache-mode full --daemon
 ```
 
-### Troubleshooting
-
+## Troubleshooting
 If you encounter issues, use the following curl command to manually request a token:
 
 ```bash
