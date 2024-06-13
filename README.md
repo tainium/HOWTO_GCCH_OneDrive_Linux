@@ -18,7 +18,7 @@ Both are viable for this scenario. I chose rclone to use the same software for m
 Note that the version available in `apt` was two years outdated in current repos when this was written.
 
 1. **Check any existing version**:
-    - Verify the updated version to ensure the installation was successful:
+    - Check your version against the `rclone` web site and decide if you want to update:
     ```bash
     rclone version
     ```
