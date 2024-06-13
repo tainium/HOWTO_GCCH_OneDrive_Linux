@@ -17,41 +17,43 @@ Both are viable for this scenario. I chose rclone to use the same software for m
 
 Note that the version available in `apt` was two years outdated in current repos when this was written.
 
-1. **Install or Update rclone**:
-    - Download and install the latest version of `rclone` from [rclone.org](https://rclone.org/):
-    ```bash
-    curl https://rclone.org/install.sh | sudo bash
-    ```
-
-2. **Verify Installation**:
-    - Check the installed version to ensure it is up to date:
+1. **Check any existing version**:
+    - Verify the updated version to ensure the installation was successful:
     ```bash
     rclone version
     ```
-
-3. **Backup Configuration (if updating)**:
+2. **Backup Configuration (if updating)**:
     - Backup your existing `rclone` configuration file before updating:
     ```bash
     cp ~/.config/rclone/rclone.conf ~/.config/rclone/rclone.conf.backup
     ```
-
-4. **Restore Configuration (if updating)**:
+3. **Stop Running Instances (if updating)**:
+    - Stop any running `rclone` mounts or daemons before updating:
+    ```bash
+    killall rclone
+    ```
+4. **Install or Update rclone**:
+    - You can try run the self-updater, but it never worked in testing:
+    ```bash
+    rclone selfupdate
+    ```
+    - Else download and install the latest version of `rclone` from [rclone.org](https://rclone.org/):
+    ```bash
+    curl https://rclone.org/install.sh | sudo bash
+    ```
+5. **Verify Installation**:
+    - Check the installed version to ensure it is up to date:
+    ```bash
+    rclone version
+    ```
+6. **Restore Configuration (if needed)**:
     - Restore your configuration file after the update:
     ```bash
     mv ~/.config/rclone/rclone.conf.backup ~/.config/rclone/rclone.conf
     ```
 
-5. **Stop Running Instances (if updating)**:
-    - Stop any running `rclone` mounts or daemons before updating:
-    ```bash
-    killall rclone
-    ```
 
-6. **Verify Post-Update**:
-    - Verify the updated version to ensure the installation was successful:
-    ```bash
-    rclone version
-    ```
+
 
 ### Server Setup (Azure)
 
