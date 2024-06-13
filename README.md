@@ -18,7 +18,7 @@ Both are viable for this scenario. I chose rclone to use the same software for m
 Note that the version available in `apt` was two years outdated in current repos when this was written.
 
 1. **Check any existing version**:
-    - Check your version against the `rclone` web site and decide if you want to update:
+    - Check your version against the [rclone web site](https://rclone.org/) and decide if you want to update:
     ```bash
     rclone version
     ```
@@ -51,9 +51,6 @@ Note that the version available in `apt` was two years outdated in current repos
     ```bash
     mv ~/.config/rclone/rclone.conf.backup ~/.config/rclone/rclone.conf
     ```
-
-
-
 
 ### Server Setup (Azure)
 
@@ -150,22 +147,22 @@ puts "                  *** IGNORE WHAT IT SAYS BELOW ***\n"
 interact ;# return control to the user
 ```
 #### Pause, Then Proceed Through Manual Authorization
-Avoid letting `rclone` auto-fetch the token. Instead, manually run the authorization server/listener yourself, which the `expect` script will also provide for you:
+1. Avoid letting `rclone` auto-fetch the token. Instead, manually run the authorization server/listener yourself, which the `expect` script will also provide for you:
 ```bash
 rclone authorize "onedrive" --auth-no-open-browser "client_id" "client_secret" -vv
 ```
-The auth listener will also give you the browser URL to visit. Do that.
+2. The auth listener will also give you the browser URL to visit. Do that.
 
-You will then get a big chunk of output in your terminal. Look for:
+3. You will then get a big chunk of output in your terminal. Look for:
 ```plaintext
 Paste the following into your remote machine --->
 <---End paste
 ```
 Everything in between those lines goes into the value for 'token' in your `rclone config` wizard that is still waiting for you from before you manually ran the listener `rclone authorize` command.
 
-Proceed through the final steps of the `rclone config` wizard. Of particular note, a final step of the wizard is getting your onedrive id.
+1. Proceed through the final steps of the `rclone config` wizard. Of particular note, a final step of the wizard is getting your onedrive id.
 
-Configuration completed.
+2. Configuration completed.
 
 #### Mount Your Drive
 
