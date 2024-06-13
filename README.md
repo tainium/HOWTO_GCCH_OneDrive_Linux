@@ -4,7 +4,7 @@
 The goal is to mount a M365 GCCH OneDrive Business account, which almost always requires Multi-Factor Authentication (MFA), on a Linux machine using rclone. This setup needs to ensure secure access and optionally handle MFA, while complying with GCCH requirements and the `"us"` region. We configure both the server side (Azure) and the client side (`rclone`). We ensure proper handling of OAuth2 tokens using GCCH endpoints. Read the `rclone` documentation.  This guide is intended as a supplement that primarily differs in how we handle tenant ids and the authorization step.
 
 ## `rclone` vs abraunegg's `OneDrive Client for Linux`
-Both are viable for this scenario. I chose rclone to use the same software for mounting multiple cloud storage services. Abraunegg's solution worked well in testing and may be a better option if you don't mount other services or prefer not to use different software for each service.
+Both are viable for this scenario. I chose rclone to use the same software for mounting multiple cloud storage services. Abraunegg's solution worked well in testing and may be a better option if you don't mount other services or don't mind using different software for each service.
 
 ## Prerequisites
 - **Administrative Access**: You need administrative access to the Azure portal. You may need administrative access to the Linux machine for `rclone` and/or the `expect` script.
